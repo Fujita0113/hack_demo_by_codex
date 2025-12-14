@@ -1,65 +1,119 @@
-import Image from "next/image";
+import type { ReactNode } from "react";
+import Link from "next/link";
+import { ArrowRight, PlayCircle, Shield, Timer, Wand2 } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+      <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-16 lg:flex-row lg:items-center lg:justify-between">
+        <div className="max-w-2xl space-y-6">
+          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 ring-1 ring-emerald-100">
+            Flowlog • 集中とふりかえりをひとつに
+          </div>
+          <h1 className="text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
+            毎日のリズムを整える
+            <span className="text-emerald-600"> タイムトラッカー</span>と
+            <br />
+            やさしい日報UI
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg text-slate-600">
+            タイマー、カレンダー、AIフィードバックまでワンストップ。
+            PepperのDeals画面を意識した、整然としたSaaSトーンのUIをそのまま体験できます。
           </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-base font-semibold text-white shadow-md shadow-emerald-200 transition hover:-translate-y-0.5 hover:bg-emerald-500/90"
+            >
+              ダッシュボードに入る
+              <ArrowRight size={18} />
+            </Link>
+            <button className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-base font-semibold text-slate-800 shadow-sm transition hover:border-slate-300 hover:bg-slate-50">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs font-bold text-[#4285f4] ring-1 ring-slate-200">
+                G
+              </span>
+              Googleではじめる（UIのみ）
+            </button>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <FeatureChip icon={<Timer size={18} />} title="秒単位の計測" />
+            <FeatureChip icon={<Wand2 size={18} />} title="AIサマリ付き" />
+            <FeatureChip icon={<Shield size={18} />} title="認証UIのみ実装" />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="w-full max-w-xl rounded-3xl border border-white/70 bg-white/80 p-8 shadow-xl shadow-emerald-50 backdrop-blur">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <p className="text-sm text-slate-500">プレビュー</p>
+              <h2 className="text-xl font-semibold text-slate-900">
+                今日のサマリ
+              </h2>
+            </div>
+            <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+              mock data
+            </span>
+          </div>
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-slate-500">計測中のタスク</p>
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    UI刷新のまとめ作成
+                  </h3>
+                </div>
+                <div className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
+                  集中モード
+                </div>
+              </div>
+              <div className="mt-3 flex items-center gap-3">
+                <div className="rounded-full bg-white px-3 py-1 text-sm font-semibold text-emerald-700 shadow-sm">
+                  00:42:18
+                </div>
+                <div className="text-xs text-slate-500">
+                  日報作成まであと少し…
+                </div>
+              </div>
+            </div>
+            <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                    <PlayCircle size={20} />
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-500">AIフィードバック</p>
+                    <p className="text-base font-semibold text-slate-900">
+                      「チーム共有が分かりやすい構成でした」
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/report/result"
+                  className="text-sm font-semibold text-emerald-600 hover:underline"
+                >
+                  詳細を見る
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
+    </div>
+  );
+}
+
+function FeatureChip({
+  icon,
+  title,
+}: {
+  icon: ReactNode;
+  title: string;
+}) {
+  return (
+    <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">
+      <span className="text-emerald-600">{icon}</span>
+      {title}
     </div>
   );
 }
