@@ -10,10 +10,12 @@ const feedback = reports[0].aiFeedback;
 
 export default function ReportResultPage() {
   const [phase, setPhase] = useState<1 | 2 | 3>(1);
+  const today = new Date();
+  const todayDate = today.getDate();
 
   useEffect(() => {
     const timer1 = window.setTimeout(() => setPhase(2), 1400);
-    const timer2 = window.setTimeout(() => setPhase(3), 2600);
+    const timer2 = window.setTimeout(() => setPhase(3), 3000);
     return () => {
       window.clearTimeout(timer1);
       window.clearTimeout(timer2);
@@ -22,44 +24,55 @@ export default function ReportResultPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-semibold text-slate-500">分析フェーズ</p>
-        <h1 className="text-3xl font-bold text-slate-900">
-          スタンプ演出 → 結果表示
-        </h1>
-      </div>
+      {/* Phase 1: 待機 (Loading) */}
+      {phase === 1 && (
+        <div className="glass-card flex flex-col items-center justify-center rounded-3xl p-8 text-center">
+          <Loader2 className="h-10 w-10 animate-spin text-emerald-600" />
+          <p className="mt-3 text-sm font-semibold text-slate-600">
+            分析中...
+          </p>
+        </div>
+      )}
 
-      <div className="glass-card flex flex-col items-center justify-center rounded-3xl p-8 text-center">
-        {phase === 1 && (
-          <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-10 w-10 animate-spin text-emerald-600" />
-            <p className="text-sm font-semibold text-slate-600">
-              AIが日報を要約中です…
-            </p>
-          </div>
-        )}
-        {phase === 2 && (
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
-              <Stamp size={32} className="animate-bounce" />
+      {/* Phase 2: 報酬 (Reward) */}
+      {phase === 2 && (
+        <div className="space-y-6">
+          <div className="glass-card flex flex-col items-center justify-center rounded-3xl p-8 text-center">
+            <div className="relative">
+              {/* カレンダーの今日の日付に「済」スタンプが押されるアニメーション */}
+              <div className="flex h-24 w-24 items-center justify-center rounded-2xl border-2 border-emerald-300 bg-emerald-50">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-emerald-900">
+                    {todayDate}
+                  </div>
+                  <div className="mt-1 flex items-center justify-center">
+                    <Stamp
+                      size={24}
+                      className="animate-bounce text-emerald-600"
+                    />
+                  </div>
+                  <div className="mt-1 text-xs font-semibold text-emerald-700">
+                    済
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="text-sm font-semibold text-slate-600">
-              スタンプを押しています…
-            </p>
           </div>
-        )}
-        {phase === 3 && (
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-200">
-              <Check size={28} />
-            </div>
-            <p className="text-sm font-semibold text-slate-600">
-              生成が完了しました！
-            </p>
-          </div>
-        )}
-      </div>
 
+          {/* 「🔥 3日連続達成！」等のポップアップ */}
+          <div className="glass-card rounded-2xl p-6 text-center">
+            <div className="flex flex-col items-center gap-2">
+              <div className="text-3xl">🔥</div>
+              <p className="text-lg font-bold text-slate-900">3日連続達成！</p>
+              <p className="text-sm text-slate-600">
+                継続の習慣が身についてきました
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Phase 3: 結果 (Insight) */}
       {phase === 3 && (
         <div className="space-y-4">
           <FeedbackCard feedback={feedback} />

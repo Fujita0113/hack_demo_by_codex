@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { BarChart3, LineChart, Sparkles } from "lucide-react";
 import { FeedbackCard } from "@/components/FeedbackCard";
 import { aiSummary, monthlyHours, reports, weeklyHours } from "@/lib/mock";
@@ -5,38 +8,58 @@ import { aiSummary, monthlyHours, reports, weeklyHours } from "@/lib/mock";
 const latestFeedback = reports[0].aiFeedback;
 
 export default function AnalyticsPage() {
+  const [activeTab, setActiveTab] = useState<"weekly" | "monthly">("weekly");
   const weeklyMax = Math.max(...weeklyHours.map((d) => d.value));
   const monthlyMax = Math.max(...monthlyHours.map((d) => d.value));
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-semibold text-slate-500">分析</p>
+        <p className="text-sm font-semibold text-slate-500">分析レポート</p>
         <h1 className="text-3xl font-bold text-slate-900">
-          週間 / 月間のざっくり可視化
+          統計レポート（週間・月間）
         </h1>
       </div>
 
       <div className="glass-card rounded-3xl p-5">
+        {/* Tab切り替え */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
+          <button
+            onClick={() => setActiveTab("weekly")}
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${
+              activeTab === "weekly"
+                ? "bg-emerald-50 text-emerald-700"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+            }`}
+          >
             <BarChart3 size={16} />
             週間
-          </div>
-          <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600">
+          </button>
+          <button
+            onClick={() => setActiveTab("monthly")}
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${
+              activeTab === "monthly"
+                ? "bg-emerald-50 text-emerald-700"
+                : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+            }`}
+          >
             <LineChart size={16} />
             月間
-          </div>
+          </button>
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-2">
-          <div>
+        {/* 週間表示 */}
+        {activeTab === "weekly" && (
+          <div className="mt-6">
             <p className="mb-3 text-sm font-semibold text-slate-500">
               週間: 作業時間の推移
             </p>
             <div className="flex items-end gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-4">
               {weeklyHours.map((day) => (
-                <div key={day.label} className="flex flex-1 flex-col items-center gap-2">
+                <div
+                  key={day.label}
+                  className="flex flex-1 flex-col items-center gap-2"
+                >
                   <div
                     className="w-full rounded-full bg-emerald-400 shadow-md shadow-emerald-200/60"
                     style={{
@@ -53,14 +76,20 @@ export default function AnalyticsPage() {
               ))}
             </div>
           </div>
+        )}
 
-          <div>
+        {/* 月間表示 */}
+        {activeTab === "monthly" && (
+          <div className="mt-6">
             <p className="mb-3 text-sm font-semibold text-slate-500">
               月間: 週ごとの積み上げ
             </p>
             <div className="flex items-end gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-inner shadow-slate-200/60">
               {monthlyHours.map((week) => (
-                <div key={week.label} className="flex flex-1 flex-col items-center gap-2">
+                <div
+                  key={week.label}
+                  className="flex flex-1 flex-col items-center gap-2"
+                >
                   <div
                     className="w-full rounded-2xl bg-gradient-to-t from-emerald-200 via-emerald-400 to-emerald-600 shadow-md shadow-emerald-200/50"
                     style={{
@@ -77,7 +106,7 @@ export default function AnalyticsPage() {
               ))}
             </div>
           </div>
-        </div>
+        )}
 
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <div className="glass-card rounded-2xl p-4">

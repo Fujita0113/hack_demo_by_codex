@@ -3,6 +3,10 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { reports } from "@/lib/mock";
 
 const today = reports[0];
+// 先週の同日の作業時間（ダミー値）
+const lastWeekDuration = 4.5;
+const comparison = today.duration - lastWeekDuration;
+const comparisonPercent = ((comparison / lastWeekDuration) * 100).toFixed(1);
 
 export default function ReportNewPage() {
   return (
@@ -12,13 +16,24 @@ export default function ReportNewPage() {
         <h1 className="text-3xl font-bold text-slate-900">今日のまとめを書く</h1>
       </div>
 
+      {/* 実績フィードバック */}
       <div className="grid gap-4 md:grid-cols-3">
         <div className="glass-card rounded-2xl p-5">
           <p className="text-sm text-slate-500">本日の確定作業時間</p>
           <p className="mt-2 text-3xl font-bold text-slate-900">
             {today.duration.toFixed(1)}h
           </p>
-          <p className="text-sm text-slate-600">ダミー値です。編集もUIのみ。</p>
+          <p className="mt-2 text-sm text-slate-600">
+            先週比:{" "}
+            <span
+              className={`font-semibold ${
+                comparison >= 0 ? "text-emerald-600" : "text-slate-500"
+              }`}
+            >
+              {comparison >= 0 ? "+" : ""}
+              {comparison.toFixed(1)}h ({comparisonPercent}%)
+            </span>
+          </p>
         </div>
         <div className="glass-card rounded-2xl p-5">
           <p className="text-sm text-slate-500">AIのねぎらい</p>
