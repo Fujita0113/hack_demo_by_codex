@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { reports } from "@/lib/mock";
@@ -9,6 +12,11 @@ const comparison = today.duration - lastWeekDuration;
 const comparisonPercent = ((comparison / lastWeekDuration) * 100).toFixed(1);
 
 export default function ReportNewPage() {
+  const [bodyText, setBodyText] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBodyText(e.target.value);
+  };
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
@@ -67,9 +75,10 @@ export default function ReportNewPage() {
           日報本文（自由入力・UIのみ）
         </label>
         <textarea
-          className="mt-3 min-h-[180px] w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-inner shadow-slate-200 outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-100"
-          placeholder="今日やったこと、詰まったこと、次の一歩を書き残してください。"
-          defaultValue="今日はNext.jsについて触った。認証処理に詰まった。疲れた"
+          className="mt-3 min-h-[180px] w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-inner shadow-slate-200 outline-none placeholder:text-slate-400 focus:border-emerald-300 focus:ring-2 focus:ring-emerald-100"
+          placeholder="今日やったこと、詰まったこと、次の一歩を書き残してください。例：今日はNext.jsについて触った。認証処理に詰まった。疲れた"
+          value={bodyText}
+          onChange={handleChange}
         />
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-slate-500">
