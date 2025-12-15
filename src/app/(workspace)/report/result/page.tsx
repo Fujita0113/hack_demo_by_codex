@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Check, Loader2, Stamp } from "lucide-react";
+import { Check, Loader2, Stamp, ArrowRight } from "lucide-react";
 import { FeedbackCard } from "@/components/FeedbackCard";
 import { reports } from "@/lib/mock";
 
@@ -14,13 +14,14 @@ export default function ReportResultPage() {
   const todayDate = today.getDate();
 
   useEffect(() => {
-    const timer1 = window.setTimeout(() => setPhase(2), 1400);
-    const timer2 = window.setTimeout(() => setPhase(3), 3000);
-    return () => {
-      window.clearTimeout(timer1);
-      window.clearTimeout(timer2);
-    };
-  }, []);
+    // Phase 1からPhase 2への自動遷移
+    if (phase === 1) {
+      const timer = window.setTimeout(() => setPhase(2), 1400);
+      return () => {
+        window.clearTimeout(timer);
+      };
+    }
+  }, [phase]);
 
   return (
     <div className="space-y-6">
@@ -69,6 +70,13 @@ export default function ReportResultPage() {
               </p>
             </div>
           </div>
+          <button
+            onClick={() => setPhase(3)}
+            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-200 transition hover:-translate-y-0.5 hover:bg-emerald-500/90"
+          >
+            AIフィードバックを見る
+            <ArrowRight size={16} />
+          </button>
         </div>
       )}
 
