@@ -10,6 +10,9 @@ export default function TimerPage() {
   const [seconds, setSeconds] = useState(timerPreset.elapsedSeconds);
   const [status, setStatus] = useState<"running" | "paused" | "idle">("running");
   const [showModal, setShowModal] = useState(false);
+  const [editHours, setEditHours] = useState("0");
+  const [editMinutes, setEditMinutes] = useState("0");
+  const [editSeconds, setEditSeconds] = useState("0");
 
   useEffect(() => {
     if (status !== "running") return;
@@ -23,6 +26,16 @@ export default function TimerPage() {
     setStatus((prev) => (prev === "running" ? "paused" : "running"));
   };
 
+  const openModal = () => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+    setEditHours(hours.toString());
+    setEditMinutes(minutes.toString());
+    setEditSeconds(secs.toString());
+    setShowModal(true);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
@@ -33,7 +46,11 @@ export default function TimerPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <TimerDisplay seconds={seconds} status={status} />
+        <TimerDisplay
+          seconds={seconds}
+          status={status}
+          onDoubleClick={status === "paused" ? openModal : undefined}
+        />
         <div className="glass-card rounded-3xl p-6">
           <p className="text-sm text-slate-500">タスク</p>
           <h3 className="mt-2 text-lg font-semibold text-slate-900">
@@ -56,7 +73,7 @@ export default function TimerPage() {
           </div>
           <div className="mt-4 space-y-2">
             <button
-              onClick={() => setShowModal(true)}
+              onClick={openModal}
               className="flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50"
             >
               <Edit3 size={16} />
@@ -107,18 +124,49 @@ export default function TimerPage() {
                 閉じる
               </button>
             </div>
-            <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-              {["00", "30", "45"].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-lg font-bold text-slate-900"
-                >
-                  {item} 分
-                </div>
-              ))}
+            <div className="mt-4 grid grid-cols-3 gap-3">
+              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <input
+                  type="number"
+                  min="0"
+                  value={editHours}
+                  onChange={(e) => setEditHours(e.target.value)}
+                  className="w-full text-center text-lg font-bold text-slate-900 focus:outline-none bg-transparent"
+                />
+                <span className="text-sm font-semibold text-slate-600 whitespace-nowrap">時間</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <input
+                  type="number"
+                  min="0"
+                  max="59"
+                  value={editMinutes}
+                  onChange={(e) => setEditMinutes(e.target.value)}
+                  className="w-full text-center text-lg font-bold text-slate-900 focus:outline-none bg-transparent"
+                />
+                <span className="text-sm font-semibold text-slate-600 whitespace-nowrap">分</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <input
+                  type="number"
+                  min="0"
+                  max="59"
+                  value={editSeconds}
+                  onChange={(e) => setEditSeconds(e.target.value)}
+                  className="w-full text-center text-lg font-bold text-slate-900 focus:outline-none bg-transparent"
+                />
+                <span className="text-sm font-semibold text-slate-600 whitespace-nowrap">秒</span>
+              </div>
             </div>
             <button
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                const hours = parseInt(editHours) || 0;
+                const minutes = parseInt(editMinutes) || 0;
+                const secs = parseInt(editSeconds) || 0;
+                const totalSeconds = hours * 3600 + minutes * 60 + secs;
+                setSeconds(totalSeconds);
+                setShowModal(false);
+              }}
               className="mt-6 w-full rounded-full bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-200 transition hover:-translate-y-0.5 hover:bg-emerald-500/90"
             >
               保存（見た目のみ）

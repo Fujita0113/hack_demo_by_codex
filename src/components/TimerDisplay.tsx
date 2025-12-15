@@ -2,12 +2,14 @@ type Props = {
   seconds: number;
   status?: "idle" | "running" | "paused";
   label?: string;
+  onDoubleClick?: () => void;
 };
 
 export function TimerDisplay({
   seconds,
   status = "idle",
   label = "計測時間",
+  onDoubleClick,
 }: Props) {
   const formatted = formatTime(seconds);
 
@@ -16,7 +18,13 @@ export function TimerDisplay({
       <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
         {label}
       </p>
-      <p className="mt-3 text-5xl font-bold tabular-nums text-slate-900 sm:text-6xl">
+      <p
+        onDoubleClick={onDoubleClick}
+        className={`mt-3 text-5xl font-bold tabular-nums text-slate-900 sm:text-6xl ${
+          onDoubleClick ? "cursor-pointer select-none hover:text-slate-700" : ""
+        }`}
+        title={onDoubleClick ? "ダブルクリックで時間を編集" : ""}
+      >
         {formatted}
       </p>
       <span
