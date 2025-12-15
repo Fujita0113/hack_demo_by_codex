@@ -39,7 +39,6 @@ export default function TimerPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-semibold text-slate-500">タイマー</p>
         <h1 className="text-3xl font-bold text-slate-900">
           作業を継続中
         </h1>

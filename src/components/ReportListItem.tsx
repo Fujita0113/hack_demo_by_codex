@@ -23,16 +23,6 @@ export function ReportListItem({ report }: Props) {
         </div>
         <ArrowRight size={18} className="text-slate-400" />
       </div>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {report.topics.map((topic) => (
-          <span
-            key={topic}
-            className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700"
-          >
-            {topic}
-          </span>
-        ))}
-      </div>
       <p className="mt-3 line-clamp-2 text-sm text-slate-600">{report.body}</p>
       <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
         AIのひとこと: {report.aiFeedback.title}

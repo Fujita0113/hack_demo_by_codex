@@ -59,7 +59,6 @@ export default async function ReportDetailPage({
   if (!report) {
     return (
       <div className="space-y-4">
-        <p className="text-sm font-semibold text-slate-500">日報詳細</p>
         <h1 className="text-2xl font-bold text-slate-900">データがありません</h1>
         <Link
           href="/dashboard"
@@ -119,7 +118,6 @@ export default async function ReportDetailPage({
 
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <p className="text-sm font-semibold text-slate-500">日報詳細</p>
           <div className="flex flex-col md:flex-row md:items-center md:gap-4 gap-2">
             <h1 className="text-3xl font-bold text-slate-900">{date}</h1>
             <h2 className="text-3xl font-bold text-slate-900">{report.summary}</h2>
@@ -139,16 +137,6 @@ export default async function ReportDetailPage({
       </div>
 
       <div className="glass-card space-y-3 rounded-2xl p-5">
-        <div className="flex flex-wrap gap-2">
-          {report.topics.map((topic) => (
-            <span
-              key={topic}
-              className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700"
-            >
-              {topic}
-            </span>
-          ))}
-        </div>
         <p className="text-sm leading-7 text-slate-700 whitespace-pre-line">
           {report.body}
         </p>

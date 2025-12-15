@@ -15,7 +15,6 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-semibold text-slate-500">分析レポート</p>
         <h1 className="text-3xl font-bold text-slate-900">
           統計レポート（週間・月間）
         </h1>
