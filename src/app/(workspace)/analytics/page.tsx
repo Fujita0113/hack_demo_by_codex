@@ -108,7 +108,7 @@ export default function AnalyticsPage() {
           </div>
         )}
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
           <div className="glass-card rounded-2xl p-4">
             <p className="text-sm text-slate-500">週間合計</p>
             <p className="mt-2 text-2xl font-bold text-slate-900">28.5h</p>
@@ -120,14 +120,7 @@ export default function AnalyticsPage() {
             <p className="text-sm text-slate-500">平均セッション</p>
             <p className="mt-2 text-2xl font-bold text-slate-900">52分</p>
             <p className="text-xs font-semibold text-slate-600">
-              集中モードの維持が良好
-            </p>
-          </div>
-          <div className="glass-card rounded-2xl p-4">
-            <p className="text-sm text-slate-500">モバイル完了率</p>
-            <p className="mt-2 text-2xl font-bold text-slate-900">86%</p>
-            <p className="text-xs font-semibold text-emerald-600">
-              下部タブ導入の効果
+              作業の維持が良好
             </p>
           </div>
         </div>

@@ -63,7 +63,7 @@ export default function Home() {
                   </h3>
                 </div>
                 <div className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700">
-                  集中モード
+                  作業中
                 </div>
               </div>
               <div className="mt-3 flex items-center gap-3">

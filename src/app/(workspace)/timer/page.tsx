@@ -41,7 +41,7 @@ export default function TimerPage() {
       <div className="flex flex-col gap-2">
         <p className="text-sm font-semibold text-slate-500">タイマー</p>
         <h1 className="text-3xl font-bold text-slate-900">
-          集中モードを継続中
+          作業を継続中
         </h1>
       </div>
 
@@ -59,10 +59,12 @@ export default function TimerPage() {
           <p className="mt-3 text-sm text-slate-600">
             UIをPepper風に寄せたダッシュボード。影を抑えつつ、カードの浮き感を残しています。
           </p>
-          <div className="mt-4 flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">
-            <Sparkles size={16} />
-            {timerPreset.mood}
-          </div>
+          {timerPreset.mood && (
+            <div className="mt-4 flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">
+              <Sparkles size={16} />
+              {timerPreset.mood}
+            </div>
+          )}
         </div>
         <div className="glass-card flex flex-col justify-between rounded-3xl p-6">
           <div>

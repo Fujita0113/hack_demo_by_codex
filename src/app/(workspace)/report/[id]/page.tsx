@@ -118,9 +118,12 @@ export default async function ReportDetailPage({
       </div>
 
       <div className="flex items-center justify-between">
-        <div>
+        <div className="flex-1">
           <p className="text-sm font-semibold text-slate-500">日報詳細</p>
-          <h1 className="text-3xl font-bold text-slate-900">{date}</h1>
+          <div className="flex flex-col md:flex-row md:items-center md:gap-4 gap-2">
+            <h1 className="text-3xl font-bold text-slate-900">{date}</h1>
+            <h2 className="text-3xl font-bold text-slate-900">{report.summary}</h2>
+          </div>
           <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
             <Clock3 size={14} />
             {report.duration.toFixed(1)}h
