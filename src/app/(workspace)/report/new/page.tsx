@@ -38,7 +38,9 @@ export default function ReportNewPage() {
         <div className="glass-card rounded-2xl p-5">
           <p className="text-sm text-slate-500">AIのねぎらい</p>
           <p className="mt-2 text-base font-semibold text-slate-900">
-            「余白の整理が綺麗です。集中モードの色も安定しました。」
+            {comparison > 0
+              ? `「先週から見ると作業時間が増えていますね！素晴らしい継続です。」`
+              : `「作業時間が少なくても継続しているだけで偉いです。頑張れる時に頑張ればいいんです。」`}
           </p>
           <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
             <Sparkles size={14} />
@@ -67,7 +69,7 @@ export default function ReportNewPage() {
         <textarea
           className="mt-3 min-h-[180px] w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-inner shadow-slate-200 outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-100"
           placeholder="今日やったこと、詰まったこと、次の一歩を書き残してください。"
-          defaultValue={today.body}
+          defaultValue="今日はNext.jsについて触った。認証処理に詰まった。疲れた"
         />
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-slate-500">
